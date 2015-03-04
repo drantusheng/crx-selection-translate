@@ -1,0 +1,37 @@
+<!--翻译框 html 结构 S-->
+<section id="_translate_container">
+    <header>
+        <i>图钉</i>
+        <i>设置</i>
+        <i>展开</i>
+    </header>
+    <form>
+        <div>
+            <input type="text" required id="_translate_text" />
+        </div>
+        <div>
+            <input type="text" id="_translate_from" />
+            <input type="text" id="_translate_to" />
+        </div>
+        <div>
+            选择翻译引擎：<select id="_translate_choose_api">
+            <option value="youdao">有道</option>
+            <option value="baidu">百度</option>
+            <option value="google_cn">谷歌(国内)</option>
+            <option value="google">谷歌(国外)</option>
+        </select>
+            <button>翻译</button>
+        </div>
+    </form>
+    <main>
+        <!--这里是显示结果的地方-->
+    </main>
+    <footer>已开启</footer>
+</section>
+<!--翻译框 html 结构 E-->
+<!--翻译结果模板 S-->
+<script type="text/x-dot-template">
+    {{console.dir(it);}}这里是翻译结果
+</script>
+<!--翻译结果模板 E-->
+
