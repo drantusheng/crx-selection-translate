@@ -42,7 +42,7 @@
     }
 
     /**
-     * 包装一层 chrome.runtime.sendMessage
+     * 包装一层 chrome.runtime.sendMessage。
      * 主要是为了统一处理可能出现的 chrome.runtime.lastError
      * @param obj 数据
      * @returns {*} 一个 jQuery Promise 对象
