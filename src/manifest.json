@@ -1,8 +1,8 @@
 ﻿{
-  "name" : "划词翻译" ,
+  "name" : "划词翻译 - 开发版" ,
   "description" : "支持谷歌、百度、有道、必应四大翻译和朗读引擎，可以方便的查看、复制和朗读不同引擎的翻译结果。" ,
   "manifest_version" : 2 ,
-  "version" : "5.6.1" ,
+  "version" : "6.0.0" ,
   "homepage_url" : "https://chrome.google.com/webstore/detail/划词翻译/ikhdkkncnoglghljlkmcimlnlhkeamad/support" ,
   "icons" : {
     "128" : "/img/logo.png" ,
@@ -31,7 +31,7 @@
       "19" : "/img/logo.png" ,
       "38" : "/img/logo.png"
     } ,
-    "default_popup": "popup.html" ,
+    "default_popup" : "popup.html" ,
     "default_title" : "点击切换划词翻译开关"
   } ,
   "commands" : {
@@ -61,12 +61,13 @@
         "https://*/*" ,
         "file:///*"
       ] ,
-      "css" : ["/theme/selection.css"] ,
+      "css" : [
+        "/Content/st.css"
+      ] ,
       "js" : [
-        "/js/lib/jquery.js" ,
-        "/js/lib/doT.js" ,
-        "/js/module/storage.js" ,
-        "/js/select.js"
+        "/vendor/angular/angular.js" ,
+        "/Content/bridge.js" ,
+        "/Content/app.js"
       ] ,
       "all_frames" : true ,
       "run_at" : "document_start"
@@ -75,7 +76,6 @@
   "minimum_chrome_version" : "26" ,
   "web_accessible_resources" : [
     "/js/lib/ydwa.js" ,
-    "/theme/selection.dot" ,
     "/theme/icon.png"
   ]
 }

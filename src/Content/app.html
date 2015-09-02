@@ -1,0 +1,75 @@
+<lmk-app>
+
+    <form>
+        <input type="text" ng-model="query.text" />
+    </form>
+
+    <lmk-wait ng-show="context.wait">{{context.wait}}</lmk-wait>
+
+    <lmk-move>
+        <lmk-icon-pin ng-class="{'lmk-pined':config.alwaysShow}" title="钉住翻译窗口后，它不会自动消失"></lmk-icon-pin>
+        <lmk-icon class="lmk-list">
+            <lmk-icon-list></lmk-icon-list>
+
+            <lmk-list>
+                <lmk-list-item data-lmk123-action="translate" data-api-id="google_cn">
+                    谷歌(国内)翻译结果
+                </lmk-list-item>
+                <lmk-list-item data-lmk123-action="translate" data-api-id="google">
+                    谷歌(国外)翻译结果
+                </lmk-list-item>
+                <lmk-list-item data-lmk123-action="translate" data-api-id="youdao">
+                    有道翻译结果
+                </lmk-list-item>
+                <lmk-list-item data-lmk123-action="translate" data-api-id="baidu">
+                    百度翻译结果
+                </lmk-list-item>
+                <lmk-list-item data-lmk123-action="translate" data-api-id="bing">
+                    必应翻译(测试中)
+                </lmk-list-item>
+                <lmk-list-item data-lmk123-action="web">网页翻译</lmk-list-item>
+            </lmk-list>
+
+        </lmk-icon>
+        <lmk-icon>
+            <lmk-icon-setting title="打开设置"></lmk-icon-setting>
+        </lmk-icon>
+    </lmk-move>
+    <lmk-content>
+
+        <lmk-section ng-show="context.error">{{ context.error }}</lmk-section>
+
+
+        <lmk-phonetic>
+            <lmk-phonetic-text ng-show="context.phonetic">{{ context.phonetic }}</lmk-phonetic-text>
+
+            <lmk-icon-play data-lmk123-play="text" ng-show="context.query.length < 50"></lmk-icon-play>
+
+        </lmk-phonetic>
+
+
+        <lmk-section ng-show="context.detailed">
+            {{ context.detailed }}
+            <lmk-icon-copy></lmk-icon-copy>
+        </lmk-section>
+
+
+
+        <lmk-section ng-show="context.result">
+            {{ context.result }}
+            <lmk-icon-copy></lmk-icon-copy>
+            <lmk-icon-play data-lmk123-play="result" ng-show="context.result.length < 50"></lmk-icon-play>
+        </lmk-section>
+
+    </lmk-content>
+    <lmk-footer>
+        <lmk-switch title="点击可切换开关" ng-class="{'lmk-close':config.enable}">
+            <lmk-enable>已开启</lmk-enable>
+            <lmk-disable>已关闭</lmk-disable>
+        </lmk-switch>
+
+        <lmk-a ng-show="context.api">via {{context.api.name}}</lmk-a>
+
+    </lmk-footer>
+
+</lmk-app>

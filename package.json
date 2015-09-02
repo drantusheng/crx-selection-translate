@@ -1,15 +1,13 @@
 {
-  "name" : "grunt" ,
+  "name" : "crx-selection-translate" ,
   "version" : "0.1.0" ,
   "author" : "milk.lee@qq.com" ,
   "devDependencies" : {
-    "grunt" : "*" ,
-    "grunt-contrib-uglify" : "*" ,
-    "grunt-contrib-cssmin" : "*" ,
-    "grunt-contrib-imagemin" : "*" ,
-    "grunt-contrib-htmlmin" : "*" ,
-    "grunt-contrib-requirejs" : "*" ,
-    "grunt-contrib-copy" : "*" ,
-    "grunt-contrib-clean" : "*"
+    "gulp" : "^3.0.0" ,
+    "gulp-es6-sass" : "*" ,
+    "gulp-compress" : "*" ,
+    "del" : "^1.0.0" ,
+    "gulp-concat" : "*" ,
+    "gulp-angular-templatecache" : "*"
   }
 }
