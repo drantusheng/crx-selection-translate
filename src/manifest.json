@@ -76,6 +76,7 @@
   "minimum_chrome_version" : "26" ,
   "web_accessible_resources" : [
     "/js/lib/ydwa.js" ,
-    "/theme/icon.png"
+    "/Content/app.html" ,
+    "/Content/icon.png"
   ]
 }

@@ -130,11 +130,11 @@
                     dom_result.style.top = pos.top + 10 + 'px';
                     dom_result.style.left = pos.left + 'px';
 
-                    if ( pos.top + 10 + dom_result.clientHeight > window.innerHeight && 
+                    if ( pos.top + 10 + dom_result.clientHeight > window.innerHeight &&
                             pos.top - 10 - dom_result.clientHeight > 0 ) {
                         dom_result.style.top = pos.top - 10 - dom_result.clientHeight + 'px';
                     }
-                    if ( pos.left + dom_result.clientWidth > window.innerWidth && 
+                    if ( pos.left + dom_result.clientWidth > window.innerWidth &&
                             pos.left - dom_result.clientWidth > 0 ) {
                         dom_result.style.left = pos.left - dom_result.clientWidth + 'px';
                     }

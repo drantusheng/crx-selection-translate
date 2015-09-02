@@ -36,6 +36,8 @@ const bridge = (()=> {
         top : 0
     };
 
+    entry();
+
     return {
         config ,
 
@@ -127,6 +129,59 @@ const bridge = (()=> {
             }
         }
     };
+
+    function entry() {
+        getConfig().then( registerEvent );
+    }
+
+    function registerEvent() {
+        const $document = angular.element( document );
+
+        $document
+            .on( 'mouseup' , function ( e ) {
+                setOffset( e );
+
+                /**
+                 * 在这里使用延时的原因在于，
+                 * 用户如果点击选中的文本，
+                 * 那么由于mouseup时选中的文本还没有被浏览器取消掉，
+                 * 所以翻译框（或按钮）会再次弹出来
+                 */
+                setTimeout( function () {
+                    const text = getText();
+                    if ( check( e , text ) ) {
+                        if ( config.showTranslateButton && !(config.needCtrl && e.ctrlKey) ) { // 指定 Ctrl 时直接翻译
+                            // todo 显示翻译按钮的逻辑
+                            //selection.showBtn();
+                            console.warn( '显示翻译按钮还没做' );
+                        } else {
+                            translate( text );
+                        }
+                    }
+                } , 0 );
+            } )
+    }
+
+    /**
+     * 翻译方法。
+     * @param [queryObj]
+     */
+    function translate( queryObj ) {
+
+        if ( 'string' === typeof queryObj ) {
+            queryObj = {
+                text : queryObj
+            };
+        } else if ( !queryObj ) {
+            queryObj = {
+                text : getText()
+            };
+        }
+
+        if ( queryObj.text ) {
+            notifyAppTranslate( queryObj );
+        }
+    }
 
     /**
      * 获取应用配置。
@@ -230,12 +285,14 @@ const bridge = (()=> {
      * @param {HTMLElement} event.target - 触发翻译行为的元素
      * @param {Boolean} event.ctrlKey - 触发翻译行为时是否有按下 Ctrl 键
      * @param {Number} event.button - 鼠标按键对应的数字，0 表示鼠标左键
-     * @param {String} text - 待检查的文本
+     * @param {String} [text] - 待检查的文本
      * @returns {Boolean} - 结果
      */
     function check( event , text ) {
-
-        if ( !loading && text && config.enable && isInDom( event.target ) ) {
+        if ( !text ) {
+            text = getText();
+        }
+        if ( !loading && text && config.enable && !isInDom( event.target ) ) {
 
             // 忽略中文
             if ( config.ignoreChinese ) {
@@ -276,7 +333,7 @@ const bridge = (()=> {
      * @returns {boolean}
      */
     function isInDom( target ) {
-        return contains( dom , target );
+        return dom ? contains( dom , target ) : false;
     }
 
     /**

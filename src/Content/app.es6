@@ -1,9 +1,14 @@
 angular.module( 'ST' , [] )
+    .config( [
+        '$sceProvider' , ( $sceProvider ) => {
+            $sceProvider.enabled( false );
+        }
+    ] )
     .directive( 'lmkContainer' , [
         () => {
             return {
                 restrict : 'E' ,
-                templateUrl : '../src/Content/app.html'
+                templateUrl : chrome.runtime.getURL( '/' ) + 'Content/app.html'
             };
         }
     ] )
@@ -18,6 +23,12 @@ angular.module( 'ST' , [] )
                     $rootScope.$broadcast( event , args );
                 }
                 return this;
+            };
+
+            $rootScope.translate = ( [queryObj] ) => {
+                bridge.getResult( queryObj ).then( ( data ) => {
+                    console.log( data );
+                } );
             };
         }
     ] );
