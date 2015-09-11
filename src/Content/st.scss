@@ -1,3 +1,4 @@
+@charset "utf-8";
 /*这是一个重置可继承css属性的列表
  * 将这些属性设置为 initial ，可以阻止它们影响子元素
  * 在扩展里，需要为 lmk-container 阻止这些继承
@@ -83,7 +84,7 @@ lmk-phonetic-text {
 }
 
 lmk-icon-setting, lmk-icon-list, lmk-enable, lmk-disable, lmk-icon-copy, lmk-icon-play, lmk-icon-pin {
-  background: url(icon.png) no-repeat;
+  background: url(chrome-extension://__MSG_@@extension_id__/Content/icon.png) no-repeat;
 }
 
 lmk-icon-pin {

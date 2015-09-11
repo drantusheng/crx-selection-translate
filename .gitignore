@@ -3,3 +3,4 @@ node_modules/
 src/vendor/
 src/**/*.js
 src/**/*.css
+**/*.map

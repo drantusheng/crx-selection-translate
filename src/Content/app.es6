@@ -7,7 +7,7 @@ angular.module( 'ST' , [] )
     .directive( 'lmkContainer' , [
         () => {
             return {
-                restrict : 'E' ,
+                restrict    : 'E' ,
                 templateUrl : chrome.runtime.getURL( '/' ) + 'Content/app.html'
             };
         }
@@ -18,16 +18,18 @@ angular.module( 'ST' , [] )
             bridge._notify = function ( event , ...args ) {
                 const func = $rootScope[ event ];
                 if ( func ) {
-                    func( args );
+                    func( ...args );
                 } else {
-                    $rootScope.$broadcast( event , args );
+                    $rootScope.$broadcast( event , ...args );
                 }
                 return this;
             };
 
-            $rootScope.translate = ( [queryObj] ) => {
+            $rootScope.config = bridge.config;
+
+            $rootScope.translate = ( queryObj ) => {
                 bridge.getResult( queryObj ).then( ( data ) => {
-                    console.log( data );
+                    $rootScope.result = data;
                 } );
             };
         }

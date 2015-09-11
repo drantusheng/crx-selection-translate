@@ -65,6 +65,7 @@
         "/Content/st.css"
       ] ,
       "js" : [
+        "/Content/dont-auto-bootstrap.js" ,
         "/vendor/angular/angular.js" ,
         "/Content/bridge.js" ,
         "/Content/app.js"
