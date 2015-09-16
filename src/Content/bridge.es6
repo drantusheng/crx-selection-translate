@@ -18,7 +18,7 @@ const bridge = (()=> {
    * 页面上的翻译窗口，在 _init() 方法中初始化
    * @type {HTMLElement}
    */
-  let dom ,
+  let dom_container ,
 
   /**
    * 应用设置
@@ -239,7 +239,7 @@ const bridge = (()=> {
    * 隐藏翻译窗口
    */
   function hideWindow() {
-    dom.classList.remove( 'lmk-show' );
+    dom_container.classList.remove( 'st-show' );
   }
 
   /**
@@ -247,17 +247,21 @@ const bridge = (()=> {
    */
   function bootstrapApp() {
     bootstrapApp = angular.noop;
-    dom          = document.createElement( 'lmk-container' );
-    // todo 将这个加在父元素上 dom.setAttribute( 'ng-non-bindable' , '' );
-    document.body.appendChild( dom );
-    angular.bootstrap( dom , [ 'ST' ] );
+    dom_container          = document.createElement( 'div' );
+    dom_container.setAttribute( 'ng-non-bindable' , '' );
+
+    let app = document.createElement( 'st-container' );
+    dom_container.appendChild( app );
+
+    document.body.appendChild( dom_container );
+    angular.bootstrap( app , [ 'ST' ] );
   }
 
   /**
    * 显示翻译窗口
    */
   function showWindow() {
-    dom.classList.add( 'lmk-show' );
+    dom_container.classList.add( 'st-show' );
   }
 
   /**
@@ -336,7 +340,7 @@ const bridge = (()=> {
    * @returns {boolean}
    */
   function isInDom( target ) {
-    return dom ? contains( dom , target ) : false;
+    return dom_container ? contains( dom_container , target ) : false;
   }
 
   /**

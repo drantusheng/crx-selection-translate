@@ -1,9 +1,9 @@
 @charset "utf-8";
 /*这是一个重置可继承css属性的列表
  * 将这些属性设置为 initial ，可以阻止它们影响子元素
- * 在扩展里，需要为 lmk-container 阻止这些继承
+ * 在扩展里，需要为 st-container 阻止这些继承
  */
-lmk-container, lmk-translate {
+st-container, st-translate {
     border-collapse: initial;
     border-spacing: initial;
     caption-side: initial;
@@ -35,13 +35,13 @@ lmk-container, lmk-translate {
     word-spacing: initial;
 }
 
-lmk-container, lmk-container * {
+st-container, st-container * {
     box-sizing: initial;
 }
 
 /*重置浏览器默认样式结束*/
 
-lmk-container {
+st-container {
     display: none;
     font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif;
     min-width: 150px;
@@ -57,37 +57,37 @@ lmk-container {
     font-size: 14px;
 }
 
-.lmk-show {
+.st-show {
     display: block;
 }
 
-lmk-wait {
+st-wait {
     text-align: center;
     display: block;
     color: #fff;
 }
 
-lmk-move {
+st-move {
     display: block;
     /*width: 100%;*/
     height: 50px;
     cursor: move;
 }
 
-lmk-retry {
+st-retry {
     color: blue;
     cursor: pointer;
 }
 
-lmk-phonetic-text {
+st-phonetic-text {
     margin-left: 10px;
 }
 
-lmk-icon-setting, lmk-icon-list, lmk-enable, lmk-disable, lmk-icon-copy, lmk-icon-play, lmk-icon-pin {
+st-icon-setting, st-icon-list, st-enable, st-disable, st-icon-copy, st-icon-play, st-icon-pin {
   background: url(chrome-extension://__MSG_@@extension_id__/Content/icon.png) no-repeat;
 }
 
-lmk-icon-pin {
+st-icon-pin {
     cursor: pointer;
     transform: rotate(45deg);
     display: inline-block;
@@ -100,19 +100,19 @@ lmk-icon-pin {
 }
 
 /* :hover 比 css类优先级高，需要覆盖*/
-lmk-icon-pin.lmk-pined {
+st-icon-pin.st-pined {
     transform: rotate(0deg);
 }
 
-/*lmk-icon-pin.lmk-pined:hover {
+/*st-icon-pin.st-pined:hover {
     transform: rotate(13deg);
 }*/
 
-/*lmk-icon-pin:hover, lmk-icon-pin.lmk-pined:hover {*/
+/*st-icon-pin:hover, st-icon-pin.st-pined:hover {*/
 /*transform: rotate(13deg);*/
 /*}*/
 
-lmk-icon {
+st-icon {
     display: inline-block;
     width: 40px;
     height: 50px;
@@ -121,38 +121,38 @@ lmk-icon {
     cursor: pointer;
 }
 
-lmk-icon:hover {
+st-icon:hover {
     background-color: #fff;
 }
 
-lmk-icon-setting, lmk-icon-list {
+st-icon-setting, st-icon-list {
     display: block;
     transition: all .2s;
 }
 
-lmk-icon-setting {
+st-icon-setting {
     width: 22px;
     height: 22px;
     background-position: -50px -10px;
     margin: 14px auto; /* ( 50 - 22 ) / 2 */
 }
 
-lmk-icon:hover lmk-icon-setting {
+st-icon:hover st-icon-setting {
     background-position: -50px -50px;
 }
 
-lmk-icon-list {
+st-icon-list {
     width: 18px;
     height: 18px;
     background-position: -10px -10px;
     margin: 16px auto; /* ( 50 - 18 ) / 2 */
 }
 
-lmk-icon:hover lmk-icon-list {
+st-icon:hover st-icon-list {
     background-position: -10px -50px;
 }
 
-lmk-content {
+st-content {
     display: block;
     box-sizing: border-box;
     padding: 10px 0;
@@ -161,7 +161,7 @@ lmk-content {
     max-height: 280px;
 }
 
-lmk-section {
+st-section {
     display: block;
     line-height: 20px;
     position: relative;
@@ -171,12 +171,12 @@ lmk-section {
     transition: all .2s;
 }
 
-lmk-section:hover {
+st-section:hover {
     /*border-color: tomato;*/
     background-color: #f9f9f9;
 }
 
-lmk-icon-copy, lmk-icon-play {
+st-icon-copy, st-icon-play {
     width: 35px;
     /*height: 20px;*/
     position: absolute;
@@ -189,15 +189,15 @@ lmk-icon-copy, lmk-icon-play {
     color: #12813e;
 }
 
-lmk-icon-copy {
+st-icon-copy {
     overflow: hidden;
 }
 
-lmk-section:hover lmk-icon-copy, lmk-section:hover lmk-icon-play {
+st-section:hover st-icon-copy, st-section:hover st-icon-play {
     opacity: 1;
 }
 
-lmk-icon-play {
+st-icon-play {
     /*width: 14px;*/
     /*height: 14px;*/
     line-height: 20px;
@@ -207,27 +207,27 @@ lmk-icon-play {
     margin-left: 10px;
 }
 
-lmk-icon-play::after, lmk-icon-copy::after {
+st-icon-play::after, st-icon-copy::after {
     font-size: 14px;
 }
 
-lmk-icon-play::after {
+st-icon-play::after {
     content: "朗读";
 }
 
-lmk-icon-copy::after {
+st-icon-copy::after {
     content: "复制";
 }
 
-lmk-icon-copy.lmk-copy {
+st-icon-copy.st-copy {
     width: 45px;
 }
 
-lmk-icon-copy.lmk-copy::after {
+st-icon-copy.st-copy::after {
     content: "已复制";
 }
 
-lmk-icon-copy {
+st-icon-copy {
     /*width: 12px;*/
     /*height: 16px;*/
     background-position: -90px -48px;
@@ -236,7 +236,7 @@ lmk-icon-copy {
     transition: all .2s;
 }
 
-lmk-footer {
+st-footer {
     padding: 0 11px;
     display: block;
     height: 30px;
@@ -246,7 +246,7 @@ lmk-footer {
     overflow: hidden;
 }
 
-lmk-switch {
+st-switch {
     float: left;
     height: 60px;
     width: 60px;
@@ -254,35 +254,35 @@ lmk-switch {
     transition: all .2s;
 }
 
-lmk-switch.lmk-close {
+st-switch.st-close {
     transform: translateY(-30px);
 }
 
-lmk-enable, lmk-disable {
+st-enable, st-disable {
     padding-left: 20px;
     display: block;
     float: left;
 }
 
-lmk-enable {
+st-enable {
     background-position: -143px -42px;
 }
 
-lmk-disable {
+st-disable {
     background-position: -142px -2px;
 }
 
-lmk-a {
+st-a {
     cursor: pointer;
     float: right;
     transition: all .2s;
 }
 
-lmk-a:hover {
+st-a:hover {
     color: #9a6a16;
 }
 
-lmk-list {
+st-list {
     display: block;
     opacity: 0;
     position: absolute;
@@ -301,17 +301,17 @@ lmk-list {
     cursor: default;
 }
 
-lmk-icon.lmk-list {
+st-icon.st-list {
     border-bottom: 1px solid #32cd74;
     box-sizing: border-box;
 }
 
-lmk-icon.lmk-list:hover lmk-list {
+st-icon.st-list:hover st-list {
     opacity: 1;
     width: 140px;
 }
 
-lmk-list-item {
+st-list-item {
     margin: 1px 0;
     display: block;
     font-size: 15px;
@@ -323,7 +323,7 @@ lmk-list-item {
     transition: all .2s;
 }
 
-lmk-list-item:hover {
+st-list-item:hover {
     /*transition: all .2s;*/
     color: #18b255;
     background-color: #f9f9f9;;
@@ -331,7 +331,7 @@ lmk-list-item:hover {
     /*background-color: #32cd74;*/
 }
 
-lmk-translate {
+st-translate {
     font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif;
     width: 25px;
     height: 25px;

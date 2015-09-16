@@ -1,75 +1,71 @@
-<lmk-app>
+<st-app>
 
-    <form>
-        <input type="text" ng-model="query.text" />
-    </form>
+  <form>
+    <input type="text" ng-model="query.text" />
+  </form>
 
-    <lmk-wait ng-show="context.wait">{{context.wait}}</lmk-wait>
+  <st-wait ng-show="context.wait">{{context.wait}}</st-wait>
 
-    <lmk-move>
-        <lmk-icon-pin ng-class="{'lmk-pined':config.alwaysShow}" title="钉住翻译窗口后，它不会自动消失"></lmk-icon-pin>
-        <lmk-icon class="lmk-list">
-            <lmk-icon-list></lmk-icon-list>
+  <st-move>
+    <st-icon-pin ng-class="{'st-pined':config.alwaysShow}" title="钉住翻译窗口后，它不会自动消失"></st-icon-pin>
+    <st-icon class="st-list">
+      <st-icon-list></st-icon-list>
 
-            <lmk-list>
-                <lmk-list-item data-lmk123-action="translate" data-api-id="google_cn">
-                    谷歌(国内)翻译结果
-                </lmk-list-item>
-                <lmk-list-item data-lmk123-action="translate" data-api-id="google">
-                    谷歌(国外)翻译结果
-                </lmk-list-item>
-                <lmk-list-item data-lmk123-action="translate" data-api-id="youdao">
-                    有道翻译结果
-                </lmk-list-item>
-                <lmk-list-item data-lmk123-action="translate" data-api-id="baidu">
-                    百度翻译结果
-                </lmk-list-item>
-                <lmk-list-item data-lmk123-action="translate" data-api-id="bing">
-                    必应翻译(测试中)
-                </lmk-list-item>
-                <lmk-list-item data-lmk123-action="web">网页翻译</lmk-list-item>
-            </lmk-list>
+      <st-list>
+        <st-list-item data-lmk123-action="translate" data-api-id="google_cn">
+          谷歌(国内)翻译结果
+        </st-list-item>
+        <st-list-item data-lmk123-action="translate" data-api-id="google">
+          谷歌(国外)翻译结果
+        </st-list-item>
+        <st-list-item data-lmk123-action="translate" data-api-id="youdao">
+          有道翻译结果
+        </st-list-item>
+        <st-list-item data-lmk123-action="translate" data-api-id="baidu">
+          百度翻译结果
+        </st-list-item>
+        <st-list-item data-lmk123-action="translate" data-api-id="bing">
+          必应翻译(测试中)
+        </st-list-item>
+        <st-list-item data-lmk123-action="web">网页翻译</st-list-item>
+      </st-list>
 
-        </lmk-icon>
-        <lmk-icon>
-            <lmk-icon-setting title="打开设置"></lmk-icon-setting>
-        </lmk-icon>
-    </lmk-move>
-    <lmk-content>
+    </st-icon>
+    <st-icon>
+      <st-icon-setting title="打开设置"></st-icon-setting>
+    </st-icon>
+  </st-move>
+  <st-content>
 
-        <lmk-section ng-show="context.error">{{ context.error }}</lmk-section>
+    <st-section ng-show="context.error">{{ context.error }}</st-section>
 
+    <st-phonetic>
+      <st-phonetic-text ng-show="context.phonetic">{{ context.phonetic }}</st-phonetic-text>
 
-        <lmk-phonetic>
-            <lmk-phonetic-text ng-show="context.phonetic">{{ context.phonetic }}</lmk-phonetic-text>
+      <st-icon-play data-lmk123-play="text" ng-show="context.query.length < 50"></st-icon-play>
 
-            <lmk-icon-play data-lmk123-play="text" ng-show="context.query.length < 50"></lmk-icon-play>
+    </st-phonetic>
 
-        </lmk-phonetic>
+    <st-section ng-show="context.detailed">
+      {{ context.detailed }}
+      <st-icon-copy></st-icon-copy>
+    </st-section>
 
+    <st-section ng-show="context.result">
+      {{ context.result }}
+      <st-icon-copy></st-icon-copy>
+      <st-icon-play data-lmk123-play="result" ng-show="context.result.length < 50"></st-icon-play>
+    </st-section>
 
-        <lmk-section ng-show="context.detailed">
-            {{ context.detailed }}
-            <lmk-icon-copy></lmk-icon-copy>
-        </lmk-section>
+  </st-content>
+  <st-footer>
+    <st-switch title="点击可切换开关" ng-class="{'st-close':config.enable}">
+      <st-enable>已开启</st-enable>
+      <st-disable>已关闭</st-disable>
+    </st-switch>
 
+    <st-a ng-show="context.api">via {{context.api.name}}</st-a>
 
+  </st-footer>
 
-        <lmk-section ng-show="context.result">
-            {{ context.result }}
-            <lmk-icon-copy></lmk-icon-copy>
-            <lmk-icon-play data-lmk123-play="result" ng-show="context.result.length < 50"></lmk-icon-play>
-        </lmk-section>
-
-    </lmk-content>
-    <lmk-footer>
-        <lmk-switch title="点击可切换开关" ng-class="{'lmk-close':config.enable}">
-            <lmk-enable>已开启</lmk-enable>
-            <lmk-disable>已关闭</lmk-disable>
-        </lmk-switch>
-
-        <lmk-a ng-show="context.api">via {{context.api.name}}</lmk-a>
-
-    </lmk-footer>
-
-</lmk-app>
+</st-app>
