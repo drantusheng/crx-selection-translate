@@ -1,3 +1,6 @@
 {
-  "directory": "src/vendor"
+  "directory" : "src/vendor" ,
+  "scripts" : {
+    "postinstall" : "node ./external/strip"
+  }
 }
