@@ -1,0 +1,21 @@
+@charset "utf-8";
+
+// 最外层的 dom
+st-div[ng-non-bindable] {
+  display: none;
+  font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif;
+  min-width: 200px;
+  min-height: 200px;
+  position: fixed;
+  z-index: 99999;
+  left: 0;
+  top: 0;
+  background-color: #32cd74;
+  border: 1px solid #32cd74;
+  box-shadow: 2px 2px 6px #89cda6;
+  font-size: 14px;
+}
+
+st-div[ng-non-bindable].st-show {
+  display: block;
+}

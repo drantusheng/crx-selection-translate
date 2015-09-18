@@ -1,0 +1,42 @@
+@charset "utf-8";
+
+/*
+ * 这是一个重置可继承css属性的列表
+ * 将这些属性设置为 initial ，可以阻止它们影响子元素
+ * 在扩展里，需要为 st-container 阻止这些继承
+ */
+st-container, st-translate {
+  border-collapse: initial;
+  border-spacing: initial;
+  caption-side: initial;
+  color: initial;
+  cursor: initial;
+  direction: initial;
+  empty-cells: initial;
+  font-family: initial;
+  font-size: initial;
+  font-weight: initial;
+  font-style: initial;
+  font-variant: initial;
+  font: initial;
+  letter-spacing: initial;
+  list-style-type: initial;
+  list-style-position: initial;
+  list-style-image: initial;
+  list-style: initial;
+  line-height: initial;
+  orphans: initial;
+  page-break-inside: initial;
+  quotes: initial;
+  text-align: initial;
+  text-indent: initial;
+  text-transform: initial;
+  visibility: initial;
+  white-space: initial;
+  widows: initial;
+  word-spacing: initial;
+}
+
+st-container, st-container * {
+  box-sizing: border-box;
+}

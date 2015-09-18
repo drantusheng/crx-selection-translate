@@ -194,8 +194,8 @@ const bridge = (()=> {
       // todo 获取配置的逻辑待完成
       resolve();
     } ).then( ( appConfig ) => {
-        angular.extend( config , defaultConfig , appConfig );
-      } );
+      angular.extend( config , defaultConfig , appConfig );
+    } );
   }
 
   /**
@@ -250,11 +250,71 @@ const bridge = (()=> {
     dom_container = document.createElement( 'st-div' );
     dom_container.setAttribute( 'ng-non-bindable' , '' );
 
-    let app = document.createElement( 'st-container' );
+    let app     = document.createElement( 'st-container' );
     dom_container.appendChild( app );
 
     document.body.appendChild( dom_container );
     angular.bootstrap( app , [ 'ST' ] );
+
+    setTimeout( ()=> {
+      dragAndResize( dom_container , 'st-move' );
+    } , 100 );
+  }
+
+  /**
+   * 让一个元素变得可拖动、可改变大小
+   * @param {HTMLElement} dom
+   * @param {String} moveLimit - CSS Selector，指定哪个元素允许被拖动
+   * @returns {HTMLElement} - 这个 dom 本身
+   */
+  function dragAndResize( dom , moveLimit ) {
+    const p = { x : 0 , y : 0 };
+
+    const move = dom.querySelector( moveLimit );
+
+    // 代码基于@{link http://interactjs.io/}
+    interact( move )
+      .draggable( {
+        inertia  : true ,
+        onmove   : ( event )=> {
+          const x = p.x + event.dx ,
+                y = p.y + event.dy;
+
+          dom.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+
+          p.x = x;
+          p.y = y;
+        } ,
+        restrict : {
+          restriction : 'html' ,
+          endOnly     : true ,
+          elementRect : { top : 0 , left : 0 , bottom : 1 , right : 1 }
+        }
+      } );
+
+    interact( dom )
+      .resizable( {
+        edges : { left : true , right : true , bottom : true , top : true }
+      } )
+      .on( 'resizemove' , function ( event ) {
+        var target = dom ,
+            {x,y}=p;
+
+        // todo 宽高变小的时候界面会受到影响。可能需要重新构建界面。
+        target.style.width  = event.rect.width + 'px';
+        target.style.height = event.rect.height + 'px';
+
+        // translate when resizing from top or left edges
+        x += event.deltaRect.left;
+        y += event.deltaRect.top;
+
+        target.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+
+        p.x = x;
+        p.y = y;
+      } );
+
+    return dom;
   }
 
   /**
