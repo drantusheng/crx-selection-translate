@@ -1,6 +1,6 @@
 build/
 node_modules/
 src/vendor/
-src/**/*.js
+**/*.js
 src/**/*.css
 **/*.map
