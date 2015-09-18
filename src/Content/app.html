@@ -4,35 +4,13 @@
 
   <st-move>
     <st-icon-pin ng-class="{'st-pined':config.alwaysShow}" title="钉住翻译窗口后，它不会自动消失"></st-icon-pin>
-    <st-icon class="st-list">
-      <st-icon-list></st-icon-list>
-
-      <st-list>
-        <st-list-item data-lmk123-action="translate" data-api-id="google_cn">
-          谷歌(国内)翻译结果
-        </st-list-item>
-        <st-list-item data-lmk123-action="translate" data-api-id="google">
-          谷歌(国外)翻译结果
-        </st-list-item>
-        <st-list-item data-lmk123-action="translate" data-api-id="youdao">
-          有道翻译结果
-        </st-list-item>
-        <st-list-item data-lmk123-action="translate" data-api-id="baidu">
-          百度翻译结果
-        </st-list-item>
-        <st-list-item data-lmk123-action="translate" data-api-id="bing">
-          必应翻译(测试中)
-        </st-list-item>
-      </st-list>
-
-    </st-icon>
     <st-icon>
       <st-icon-setting title="打开设置"></st-icon-setting>
     </st-icon>
   </st-move>
 
   <st-div ng-form>
-    <input type="text" ng-model="context.query.text" />
+    <st-input ng-model="context.query.text"></st-input>
   </st-div>
 
   <st-content>

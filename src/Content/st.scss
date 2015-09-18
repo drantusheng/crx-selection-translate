@@ -10,6 +10,10 @@ st-div {
   @extend %block;
 }
 
+st-input {
+  @extend %block;
+  background-color: #fff;
+}
 
 st-wait {
   text-align: center;

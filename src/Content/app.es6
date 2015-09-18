@@ -15,6 +15,26 @@ angular
       };
     }
   ] )
+
+/**
+ * 用来替代浏览器默认的 <input/>
+ */
+  .directive( 'stInput' , [
+    ()=> {
+      return {
+        require : 'ngModel' ,
+        link    : ( $rootScope , element , attrs , ngModelCtrl )=> {
+          element.prop( 'contentEditable' , true );
+          ngModelCtrl.$render = ()=> {
+            element.prop( 'textContent' , ngModelCtrl.$viewValue );
+          };
+          element.on( 'keyup' , ()=> {
+            ngModelCtrl.$setViewValue( element.prop( 'textContent' ) );
+          } );
+        }
+      };
+    }
+  ] )
   .run( [
     '$rootScope' , ( $rootScope ) => {
 
