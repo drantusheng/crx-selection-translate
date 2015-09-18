@@ -1,86 +1,95 @@
 @charset "utf-8";
+
+%block {
+  display: block;
+}
+
+st-div {
+  @extend %block;
+}
+
 /*这是一个重置可继承css属性的列表
  * 将这些属性设置为 initial ，可以阻止它们影响子元素
  * 在扩展里，需要为 st-container 阻止这些继承
  */
 st-container, st-translate {
-    border-collapse: initial;
-    border-spacing: initial;
-    caption-side: initial;
-    color: initial;
-    cursor: initial;
-    direction: initial;
-    empty-cells: initial;
-    font-family: initial;
-    font-size: initial;
-    font-weight: initial;
-    font-style: initial;
-    font-variant: initial;
-    font: initial;
-    letter-spacing: initial;
-    list-style-type: initial;
-    list-style-position: initial;
-    list-style-image: initial;
-    list-style: initial;
-    line-height: initial;
-    orphans: initial;
-    page-break-inside: initial;
-    quotes: initial;
-    text-align: initial;
-    text-indent: initial;
-    text-transform: initial;
-    visibility: initial;
-    white-space: initial;
-    widows: initial;
-    word-spacing: initial;
+  border-collapse: initial;
+  border-spacing: initial;
+  caption-side: initial;
+  color: initial;
+  cursor: initial;
+  direction: initial;
+  empty-cells: initial;
+  font-family: initial;
+  font-size: initial;
+  font-weight: initial;
+  font-style: initial;
+  font-variant: initial;
+  font: initial;
+  letter-spacing: initial;
+  list-style-type: initial;
+  list-style-position: initial;
+  list-style-image: initial;
+  list-style: initial;
+  line-height: initial;
+  orphans: initial;
+  page-break-inside: initial;
+  quotes: initial;
+  text-align: initial;
+  text-indent: initial;
+  text-transform: initial;
+  visibility: initial;
+  white-space: initial;
+  widows: initial;
+  word-spacing: initial;
 }
 
 st-container, st-container * {
-    box-sizing: initial;
+  box-sizing: initial;
 }
 
 /*重置浏览器默认样式结束*/
 
 st-container {
-    display: none;
-    font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif;
-    min-width: 150px;
-    max-width: 250px; /*缩小一点*/
-    position: fixed;
-    z-index: 99999;
-    /*left: 0;*/
-    /*top: 0;*/
-    right: 0; /* 防止内容跑到右侧里面去 */
-    background-color: #32cd74;
-    border: 1px solid #32cd74;
-    box-shadow: 2px 2px 6px #89cda6;
-    font-size: 14px;
+  display: none;
+  font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif;
+  min-width: 150px;
+  max-width: 250px; /*缩小一点*/
+  position: fixed;
+  z-index: 99999;
+  /*left: 0;*/
+  /*top: 0;*/
+  right: 0; /* 防止内容跑到右侧里面去 */
+  background-color: #32cd74;
+  border: 1px solid #32cd74;
+  box-shadow: 2px 2px 6px #89cda6;
+  font-size: 14px;
 }
 
-.st-show {
-    display: block;
+.st-show st-container {
+  display: block;
 }
 
 st-wait {
-    text-align: center;
-    display: block;
-    color: #fff;
+  text-align: center;
+  display: block;
+  color: #fff;
 }
 
 st-move {
-    display: block;
-    /*width: 100%;*/
-    height: 50px;
-    cursor: move;
+  display: block;
+  /*width: 100%;*/
+  height: 50px;
+  cursor: move;
 }
 
 st-retry {
-    color: blue;
-    cursor: pointer;
+  color: blue;
+  cursor: pointer;
 }
 
 st-phonetic-text {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 st-icon-setting, st-icon-list, st-enable, st-disable, st-icon-copy, st-icon-play, st-icon-pin {
@@ -88,20 +97,20 @@ st-icon-setting, st-icon-list, st-enable, st-disable, st-icon-copy, st-icon-play
 }
 
 st-icon-pin {
-    cursor: pointer;
-    transform: rotate(45deg);
-    display: inline-block;
-    margin-top: 15px;
-    margin-left: 10px;
-    background-position: -10px -87px;
-    width: 21px;
-    height: 21px;
-    transition: all .2s;
+  cursor: pointer;
+  transform: rotate(45deg);
+  display: inline-block;
+  margin-top: 15px;
+  margin-left: 10px;
+  background-position: -10px -87px;
+  width: 21px;
+  height: 21px;
+  transition: all .2s;
 }
 
 /* :hover 比 css类优先级高，需要覆盖*/
 st-icon-pin.st-pined {
-    transform: rotate(0deg);
+  transform: rotate(0deg);
 }
 
 /*st-icon-pin.st-pined:hover {
@@ -113,236 +122,236 @@ st-icon-pin.st-pined {
 /*}*/
 
 st-icon {
-    display: inline-block;
-    width: 40px;
-    height: 50px;
-    float: right;
-    transition: all .2s;
-    cursor: pointer;
+  display: inline-block;
+  width: 40px;
+  height: 50px;
+  float: right;
+  transition: all .2s;
+  cursor: pointer;
 }
 
 st-icon:hover {
-    background-color: #fff;
+  background-color: #fff;
 }
 
 st-icon-setting, st-icon-list {
-    display: block;
-    transition: all .2s;
+  display: block;
+  transition: all .2s;
 }
 
 st-icon-setting {
-    width: 22px;
-    height: 22px;
-    background-position: -50px -10px;
-    margin: 14px auto; /* ( 50 - 22 ) / 2 */
+  width: 22px;
+  height: 22px;
+  background-position: -50px -10px;
+  margin: 14px auto; /* ( 50 - 22 ) / 2 */
 }
 
 st-icon:hover st-icon-setting {
-    background-position: -50px -50px;
+  background-position: -50px -50px;
 }
 
 st-icon-list {
-    width: 18px;
-    height: 18px;
-    background-position: -10px -10px;
-    margin: 16px auto; /* ( 50 - 18 ) / 2 */
+  width: 18px;
+  height: 18px;
+  background-position: -10px -10px;
+  margin: 16px auto; /* ( 50 - 18 ) / 2 */
 }
 
 st-icon:hover st-icon-list {
-    background-position: -10px -50px;
+  background-position: -10px -50px;
 }
 
 st-content {
-    display: block;
-    box-sizing: border-box;
-    padding: 10px 0;
-    overflow-y: auto;
-    background-color: #fff;
-    max-height: 280px;
+  display: block;
+  box-sizing: border-box;
+  padding: 10px 0;
+  overflow-y: auto;
+  background-color: #fff;
+  max-height: 280px;
 }
 
 st-section {
-    display: block;
-    line-height: 20px;
-    position: relative;
-    padding: 15px 10px;
-    min-height: 30px;
-    /*border: 1px solid transparent;*/
-    transition: all .2s;
+  display: block;
+  line-height: 20px;
+  position: relative;
+  padding: 15px 10px;
+  min-height: 30px;
+  /*border: 1px solid transparent;*/
+  transition: all .2s;
 }
 
 st-section:hover {
-    /*border-color: tomato;*/
-    background-color: #f9f9f9;
+  /*border-color: tomato;*/
+  background-color: #f9f9f9;
 }
 
 st-icon-copy, st-icon-play {
-    width: 35px;
-    /*height: 20px;*/
-    position: absolute;
-    cursor: pointer;
-    opacity: 0;
-    /*transition: all .2s;*/
-    padding-left: 15px;
-    height: 20px;
-    line-height: 20px;
-    color: #12813e;
+  width: 35px;
+  /*height: 20px;*/
+  position: absolute;
+  cursor: pointer;
+  opacity: 0;
+  /*transition: all .2s;*/
+  padding-left: 15px;
+  height: 20px;
+  line-height: 20px;
+  color: #12813e;
 }
 
 st-icon-copy {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 st-section:hover st-icon-copy, st-section:hover st-icon-play {
-    opacity: 1;
+  opacity: 1;
 }
 
 st-icon-play {
-    /*width: 14px;*/
-    /*height: 14px;*/
-    line-height: 20px;
-    background-position: -90px -7px;
-    position: static;
-    opacity: 1;
-    margin-left: 10px;
+  /*width: 14px;*/
+  /*height: 14px;*/
+  line-height: 20px;
+  background-position: -90px -7px;
+  position: static;
+  opacity: 1;
+  margin-left: 10px;
 }
 
 st-icon-play::after, st-icon-copy::after {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 st-icon-play::after {
-    content: "朗读";
+  content: "朗读";
 }
 
 st-icon-copy::after {
-    content: "复制";
+  content: "复制";
 }
 
 st-icon-copy.st-copy {
-    width: 45px;
+  width: 45px;
 }
 
 st-icon-copy.st-copy::after {
-    content: "已复制";
+  content: "已复制";
 }
 
 st-icon-copy {
-    /*width: 12px;*/
-    /*height: 16px;*/
-    background-position: -90px -48px;
-    right: 0;
-    bottom: 2px; /* ( 20 - 16 ) / 2 */
-    transition: all .2s;
+  /*width: 12px;*/
+  /*height: 16px;*/
+  background-position: -90px -48px;
+  right: 0;
+  bottom: 2px; /* ( 20 - 16 ) / 2 */
+  transition: all .2s;
 }
 
 st-footer {
-    padding: 0 11px;
-    display: block;
-    height: 30px;
-    line-height: 30px;
-    color: #fff;
-    font-size: 12px;
-    overflow: hidden;
+  padding: 0 11px;
+  display: block;
+  height: 30px;
+  line-height: 30px;
+  color: #fff;
+  font-size: 12px;
+  overflow: hidden;
 }
 
 st-switch {
-    float: left;
-    height: 60px;
-    width: 60px;
-    cursor: pointer;
-    transition: all .2s;
+  float: left;
+  height: 60px;
+  width: 60px;
+  cursor: pointer;
+  transition: all .2s;
 }
 
 st-switch.st-close {
-    transform: translateY(-30px);
+  transform: translateY(-30px);
 }
 
 st-enable, st-disable {
-    padding-left: 20px;
-    display: block;
-    float: left;
+  padding-left: 20px;
+  display: block;
+  float: left;
 }
 
 st-enable {
-    background-position: -143px -42px;
+  background-position: -143px -42px;
 }
 
 st-disable {
-    background-position: -142px -2px;
+  background-position: -142px -2px;
 }
 
 st-a {
-    cursor: pointer;
-    float: right;
-    transition: all .2s;
+  cursor: pointer;
+  float: right;
+  transition: all .2s;
 }
 
 st-a:hover {
-    color: #9a6a16;
+  color: #9a6a16;
 }
 
 st-list {
-    display: block;
-    opacity: 0;
-    position: absolute;
-    z-index: 99999;
-    left: 250px;
-    top: -1px;
-    width: 0;
-    overflow: hidden;
-    transition: all .4s;
-    background-color: #fff;
-    color: #12813e;
-    text-align: center;
-    border: 1px solid #32cd74;
-    box-shadow: 2px 2px 6px #89cda6;
-    padding: 2px 0;
-    cursor: default;
+  display: block;
+  opacity: 0;
+  position: absolute;
+  z-index: 99999;
+  left: 250px;
+  top: -1px;
+  width: 0;
+  overflow: hidden;
+  transition: all .4s;
+  background-color: #fff;
+  color: #12813e;
+  text-align: center;
+  border: 1px solid #32cd74;
+  box-shadow: 2px 2px 6px #89cda6;
+  padding: 2px 0;
+  cursor: default;
 }
 
 st-icon.st-list {
-    border-bottom: 1px solid #32cd74;
-    box-sizing: border-box;
+  border-bottom: 1px solid #32cd74;
+  box-sizing: border-box;
 }
 
 st-icon.st-list:hover st-list {
-    opacity: 1;
-    width: 140px;
+  opacity: 1;
+  width: 140px;
 }
 
 st-list-item {
-    margin: 1px 0;
-    display: block;
-    font-size: 15px;
-    white-space: nowrap;
-    /*height: 22px;*/
-    /*line-height: 22px;*/
-    padding: 7px 0;
-    cursor: pointer;
-    transition: all .2s;
+  margin: 1px 0;
+  display: block;
+  font-size: 15px;
+  white-space: nowrap;
+  /*height: 22px;*/
+  /*line-height: 22px;*/
+  padding: 7px 0;
+  cursor: pointer;
+  transition: all .2s;
 }
 
 st-list-item:hover {
-    /*transition: all .2s;*/
-    color: #18b255;
-    background-color: #f9f9f9;;
-    /*color: #fff;*/
-    /*background-color: #32cd74;*/
+  /*transition: all .2s;*/
+  color: #18b255;
+  background-color: #f9f9f9;;
+  /*color: #fff;*/
+  /*background-color: #32cd74;*/
 }
 
 st-translate {
-    font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif;
-    width: 25px;
-    height: 25px;
-    line-height: 25px;
-    text-align: center;
-    cursor: pointer;
-    background-color: #32cd74;;
-    position: fixed;
-    right: 0;
-    font-size: 18px;
-    color: #fff;
-    z-index: 99999;
-    display: none;
+  font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #32cd74;;
+  position: fixed;
+  right: 0;
+  font-size: 18px;
+  color: #fff;
+  z-index: 99999;
+  display: none;
 }

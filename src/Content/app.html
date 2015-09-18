@@ -1,10 +1,6 @@
-<st-app>
+<st-div>
 
-  <form>
-    <input type="text" ng-model="query.text" />
-  </form>
-
-  <st-wait ng-show="context.wait">{{context.wait}}</st-wait>
+  <st-wait ng-show="context.loading">正在查询，请稍候……</st-wait>
 
   <st-move>
     <st-icon-pin ng-class="{'st-pined':config.alwaysShow}" title="钉住翻译窗口后，它不会自动消失"></st-icon-pin>
@@ -27,7 +23,6 @@
         <st-list-item data-lmk123-action="translate" data-api-id="bing">
           必应翻译(测试中)
         </st-list-item>
-        <st-list-item data-lmk123-action="web">网页翻译</st-list-item>
       </st-list>
 
     </st-icon>
@@ -35,26 +30,31 @@
       <st-icon-setting title="打开设置"></st-icon-setting>
     </st-icon>
   </st-move>
+
+  <st-div ng-form>
+    <input type="text" ng-model="context.query.text" />
+  </st-div>
+
   <st-content>
 
-    <st-section ng-show="context.error">{{ context.error }}</st-section>
+    <st-section ng-show="context.result.error">{{ context.error }}</st-section>
 
     <st-phonetic>
-      <st-phonetic-text ng-show="context.phonetic">{{ context.phonetic }}</st-phonetic-text>
+      <st-phonetic-text ng-show="context.result.phonetic">{{ context.result.phonetic }}</st-phonetic-text>
 
-      <st-icon-play data-lmk123-play="text" ng-show="context.query.length < 50"></st-icon-play>
+      <st-icon-play data-lmk123-play="text" ng-show="context.query.text.length < 50"></st-icon-play>
 
     </st-phonetic>
 
-    <st-section ng-show="context.detailed">
-      {{ context.detailed }}
+    <st-section ng-show="context.result.detailed">
+      {{ context.result.detailed }}
       <st-icon-copy></st-icon-copy>
     </st-section>
 
     <st-section ng-show="context.result">
-      {{ context.result }}
+      {{ context.result.result }}
       <st-icon-copy></st-icon-copy>
-      <st-icon-play data-lmk123-play="result" ng-show="context.result.length < 50"></st-icon-play>
+      <st-icon-play data-lmk123-play="result" ng-show="context.result.result.length < 50"></st-icon-play>
     </st-section>
 
   </st-content>
@@ -64,8 +64,8 @@
       <st-disable>已关闭</st-disable>
     </st-switch>
 
-    <st-a ng-show="context.api">via {{context.api.name}}</st-a>
+    <st-a ng-show="context.result.api">via {{context.result.api.name}}</st-a>
 
   </st-footer>
 
-</st-app>
+</st-div>

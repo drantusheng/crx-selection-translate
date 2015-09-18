@@ -1,14 +1,17 @@
-angular.module( 'ST' , [] )
+angular
+  .module( 'ST' , [] )
+  .constant( 'ExtRoot' , chrome.runtime.getURL( '/' ) )
   .config( [
     '$sceProvider' , ( $sceProvider ) => {
       $sceProvider.enabled( false );
     }
   ] )
   .directive( 'stContainer' , [
-    () => {
+    'ExtRoot' ,
+    ( root ) => {
       return {
         restrict    : 'E' ,
-        templateUrl : chrome.runtime.getURL( '/' ) + 'Content/app.html'
+        templateUrl : root + 'Content/app.html'
       };
     }
   ] )
@@ -27,10 +30,25 @@ angular.module( 'ST' , [] )
 
       $rootScope.config = bridge.config;
 
+      $rootScope.context = {
+        loading : false ,
+        query   : {} ,
+        result  : {}
+      };
+
       $rootScope.translate = ( queryObj ) => {
-        bridge.getResult( queryObj ).then( ( data ) => {
-          $rootScope.result = data;
-        } );
+        $rootScope.context.loading = true;
+        $rootScope.context.query   = queryObj;
+
+        bridge
+          .getResult( queryObj )
+          .then( ( data ) => {
+            $rootScope.context.result = data;
+          } )
+          .finally( ()=> {
+            $rootScope.context.loading = false;
+            $rootScope.$digest();
+          } );
       };
     }
   ] );

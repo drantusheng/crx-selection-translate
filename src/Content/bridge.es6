@@ -1,6 +1,6 @@
-// todo 一个大问题：如果应用被嵌入了一个 angularjs 网站（即有 ng-app 这个指令的网站），内容脚本里的 angularjs 也会尝试启动一次，并报错。
-
 const bridge = (()=> {
+
+  const $q = angular.injector( [ 'ng' ] ).get( '$q' );
 
   const defaultConfig = {
     alwaysShow          : false , // 如果这个值是true，那么在别处点击时不会隐藏翻译框
@@ -190,7 +190,7 @@ const bridge = (()=> {
    * @returns {Promise}
    */
   function getConfig() {
-    return new Promise( ( resolve , reject ) => {
+    return $q( ( resolve , reject ) => {
       // todo 获取配置的逻辑待完成
       resolve();
     } ).then( ( appConfig ) => {
@@ -202,7 +202,7 @@ const bridge = (()=> {
    * 一个与背景页通信的方法
    */
   function talkToBackground( obj ) {
-    return new Promise( ( resolve , reject ) => {
+    return $q( ( resolve , reject ) => {
       try { // 连接到背景页时可能会报错：{ message : 'Error connecting to extension dioiaffcokhckchgknklgafcpjpbaibj' }
         chrome.runtime.sendMessage( obj , function ( res ) {
           var le = chrome.runtime.lastError;
@@ -243,11 +243,11 @@ const bridge = (()=> {
   }
 
   /**
-   * 初始化 AngularJS 应用
+   * 初始化并启动 AngularJS 应用
    */
   function bootstrapApp() {
-    bootstrapApp = angular.noop;
-    dom_container          = document.createElement( 'div' );
+    bootstrapApp  = angular.noop;
+    dom_container = document.createElement( 'st-div' );
     dom_container.setAttribute( 'ng-non-bindable' , '' );
 
     let app = document.createElement( 'st-container' );
