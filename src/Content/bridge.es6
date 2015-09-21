@@ -275,7 +275,6 @@ const bridge = (()=> {
     // 代码基于@{link http://interactjs.io/}
     interact( move )
       .draggable( {
-        inertia : true ,
         onmove  : ( event )=> {
           const x = p.x + event.dx ,
                 y = p.y + event.dy;
