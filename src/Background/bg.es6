@@ -1,4 +1,4 @@
-angular.module( 'bg' , [] )
+angular.module( 'bg' , [ 'clipboard' ] )
   .run( [
     'clipboard' , 'APIs' ,
     ( clipboard , api )=> {
@@ -7,9 +7,7 @@ angular.module( 'bg' , [] )
         const { data } = msg;
         switch ( msg.action ) {
           case 'translate':
-            api.ts( data , function ( resultObj ) {
-              response( resultObj );
-            } );
+            api.ts( data ).then( ( resultObj )=> response( resultObj ) );
             return true; // 发送回执需要在事件监听里返回 true
 
           case 'play': // 阅读
@@ -31,5 +29,7 @@ angular.module( 'bg' , [] )
   ] );
 
 angular.element( document ).ready( ()=> {
-  angular.bootstrap( 'bg' );
+  angular.bootstrap( document , [ 'bg' ] , {
+    strictDi : true
+  } );
 } );

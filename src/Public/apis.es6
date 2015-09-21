@@ -36,7 +36,7 @@ angular.module( 'APIs' , [] )
             context = {
 
               /**
-               *
+               * 翻译的方法
                * @param {Query} query 查询对象，不能是字符串
                */
               ts : function ( query ) {
