@@ -280,7 +280,7 @@ const bridge = (()=> {
           const x = p.x + event.dx ,
                 y = p.y + event.dy;
 
-          dom.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+          dom.style.webkitTransform = dom.style.transform = 'translateX(' + x + 'px) translateY(' + y + 'px) translateZ(0)';
 
           p.x = x;
           p.y = y;
@@ -295,18 +295,17 @@ const bridge = (()=> {
         edges : { left : true , right : true , bottom : true , top : true }
       } )
       .on( 'resizemove' , function ( event ) {
-        var target = dom ,
-            {x,y}=p;
+        let {x,y}=p;
 
         // todo 宽高变小的时候界面会受到影响。可能需要重新构建界面。
-        target.style.width  = event.rect.width + 'px';
-        target.style.height = event.rect.height + 'px';
+        dom.style.width  = event.rect.width + 'px';
+        dom.style.height = event.rect.height + 'px';
 
         // translate when resizing from top or left edges
         x += event.deltaRect.left;
         y += event.deltaRect.top;
 
-        target.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+        dom.style.webkitTransform = dom.style.transform = 'translateX(' + x + 'px) translateY(' + y + 'px) translateZ(0)';
 
         p.x = x;
         p.y = y;
