@@ -250,7 +250,7 @@ const bridge = (()=> {
     dom_container = document.createElement( 'st-div' );
     dom_container.setAttribute( 'ng-non-bindable' , '' );
 
-    let app     = document.createElement( 'st-container' );
+    let app = document.createElement( 'st-container' );
     dom_container.appendChild( app );
 
     document.body.appendChild( dom_container );
@@ -275,8 +275,8 @@ const bridge = (()=> {
     // 代码基于@{link http://interactjs.io/}
     interact( move )
       .draggable( {
-        inertia  : true ,
-        onmove   : ( event )=> {
+        inertia : true ,
+        onmove  : ( event )=> {
           const x = p.x + event.dx ,
                 y = p.y + event.dy;
 
@@ -285,10 +285,8 @@ const bridge = (()=> {
           p.x = x;
           p.y = y;
         } ,
-        restrict : {
-          restriction : 'html' ,
-          endOnly     : true ,
-          elementRect : { top : 0 , left : 0 , bottom : 1 , right : 1 }
+        onend   : ()=> {
+          // todo 结束时判断一下窗口位置，如果超出视口则调整回来
         }
       } );
 
