@@ -1,18 +1,18 @@
 const bridge = (()=> {
 
-  const $q = angular.injector( [ 'ng' ] ).get( '$q' );
-
-  const defaultConfig = {
-    alwaysShow          : false , // 如果这个值是true，那么在别处点击时不会隐藏翻译框
-    enable              : true , // 是否开启当前网页的划词翻译
-    autoPlay            : false , // 当翻译单词和短语（即翻译结果有 detailed 的时候）自动发音
-    ignoreChinese       : false , // 是否忽略中文
-    ignoreNumLike       : true , // 忽略数字与符号的组成
-    showTranslateButton : false , // 是否在划词后显示一个按钮，点击它才翻译
-    waitText            : '正在翻译，请稍候……' ,  // 正在翻译的提示语
-    needCtrl            : false , // 是否需要配合 Ctrl 键才翻译
-    template            : '划词翻译刚才自动更新了，请重启浏览器后重试。'
-  };
+  const $q            = angular.injector( [ 'ng' ] ).get( '$q' ) ,
+        defaultConfig = {
+          alwaysShow          : false , // 如果这个值是true，那么在别处点击时不会隐藏翻译框
+          enable              : true , // 是否开启当前网页的划词翻译
+          autoPlay            : false , // 当翻译单词和短语（即翻译结果有 detailed 的时候）自动发音
+          ignoreChinese       : false , // 是否忽略中文
+          ignoreNumLike       : true , // 忽略数字与符号的组成
+          showTranslateButton : false , // 是否在划词后显示一个按钮，点击它才翻译
+          waitText            : '正在翻译，请稍候……' ,  // 正在翻译的提示语
+          needCtrl            : false , // 是否需要配合 Ctrl 键才翻译
+          template            : '划词翻译刚才自动更新了，请重启浏览器后重试。'
+        } ,
+        port          = chrome.runtime.connect( { name : 'from content-script' } );
 
   /**
    * 页面上的翻译窗口，在 _init() 方法中初始化
@@ -42,6 +42,8 @@ const bridge = (()=> {
 
   return {
     config ,
+
+    port ,
 
     /**
      * 这个方法是在应用启动后由应用定义的。
@@ -275,7 +277,7 @@ const bridge = (()=> {
     // 代码基于@{link http://interactjs.io/}
     interact( move )
       .draggable( {
-        onmove  : ( event )=> {
+        onmove : ( event )=> {
           const x = p.x + event.dx ,
                 y = p.y + event.dy;
 
@@ -284,7 +286,7 @@ const bridge = (()=> {
           p.x = x;
           p.y = y;
         } ,
-        onend   : ()=> {
+        onend  : ()=> {
           // todo 结束时判断一下窗口位置，如果超出视口则调整回来
         }
       } );

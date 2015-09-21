@@ -10,7 +10,7 @@
     "48" : "/img/logo.png"
   } ,
   "author" : "Milk Lee( milk.lee@qq.com )" ,
-  "content_security_policy" : "script-src 'self' 'unsafe-eval' https://ssl.google-analytics.com https://code.jquery.com; object-src 'self'" ,
+  "content_security_policy" : "script-src 'self' 'unsafe-eval' https://ssl.google-analytics.com; object-src 'self'" ,
   "permissions" : [
     "*://*/*" ,
     "contextMenus" ,
@@ -21,8 +21,7 @@
   ] ,
   "background" : {
     "scripts" : [
-      "/js/lib/require.js" ,
-      "/js/bg.js"
+      "/Background/bg.js"
     ]
   } ,
   "options_page" : "options.html" ,
