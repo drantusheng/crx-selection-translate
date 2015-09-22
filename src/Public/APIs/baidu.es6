@@ -25,7 +25,7 @@ angular.module( 'APIs' ).run( [
     errMsgMap      = {
       52001 : '百度翻译忙不过来了，稍后再试试看，或者用有道翻译吧。' ,
       52002 : '百度翻译出错了！用有道试试吧。' ,
-      52003 : '天呐！如果你看见这条错误信息，说明由于使用右键翻译的人数过多，导致百度翻译封禁了翻译功能！请火速发送邮件至 milk.lee@qq.com 反应情况！'
+      52003 : '天呐！由于使用划词翻译的人数过多，百度翻译封禁了翻译功能！请火速发送邮件至 milk.lee@qq.com 反应情况！'
     } ,
 
     translateHttpConfig     = {
@@ -49,9 +49,13 @@ angular.module( 'APIs' ).run( [
     baiduAPI       = {
       id   : 'baidu' ,
       name : '百度翻译' ,
-
       link : 'http://fanyi.baidu.com/' ,
 
+      /**
+       * 翻译的方法
+       * @param {Query} query
+       * @returns {angular.IPromise<TResult>}
+       */
       translate : ( query )=> {
         const config     = angular.copy( translateHttpConfig );
         config.params.q  = query.text;
@@ -118,7 +122,7 @@ angular.module( 'APIs' ).run( [
      * @property {Number} [error_code] - 百度返回的错误码
      * @property {String} to - 百度返回的目标语种
      * @property {String} from - 百度返回的源语种
-     * @property {{src: String, dst: String}[]} [trans_result=undefined] - 百度返回的翻译结果，每一个段落对应一个数组元素
+     * @property {{src: String, dst: String}[]} [trans_result] - 百度返回的翻译结果，每一个段落对应一个数组元素
      */
 
     /**
