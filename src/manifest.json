@@ -21,6 +21,10 @@
   ] ,
   "background" : {
     "scripts" : [
+      "/vendor/angular/angular.js" ,
+      "/Public/clipboard.js" ,
+      "/Public/apis.js" ,
+      "/Public/APIs/baidu.js" ,
       "/Background/bg.js"
     ]
   } ,

@@ -10,7 +10,7 @@
  */
 
 /**
- * 查询对象
+ * 查询对象。注意：查询对象里的语种都是谷歌翻译格式的
  * @typedef {Object} Query
  * @property {String} text - 要查询或者朗读的文本
  * @property {String} [from="auto"] - 这段文本的语种
@@ -18,15 +18,33 @@
  * @property {String} [apiId="google_cn"] - 期望使用哪种翻译引擎翻译或朗读
  */
 
-
+/**
+ * @typedef {Object} Result
+ *
+ * 无论正常与否，下面的属性都会由划词翻译自动添加
+ * @property {API} api - 使用哪个接口查询到的此次结果
+ * @property {String} text - 等同于 Query 中的 text
+ *
+ * 查询结果正常的情况下：
+ * @property {String} [result] - 查询结果
+ * @property {String} [linkToResult] - 此翻译引擎的在线翻译地址
+ * @property {Object} [response] - 此翻译引擎的原始未经转换的数据
+ * @property {String} [from] - 此翻译引擎返回的源语种，注意这不是谷歌格式的语种，也不一定是 Query 里指定的语种
+ * @property {String} [to] - 此翻译引擎返回的目标语种，注意这不是谷歌格式的语种，也不一定是 Query 里指定的语种
+ * @property {String[]} [detailed] - 详细释义
+ * @property {String} [phonetic] - 音标
+ *
+ * 查询结果异常的情况下：
+ * @property {String} error - 错误消息，出错时必选
+ */
 
 angular.module( 'APIs' , [] )
-  .provider( 'APIs' , [
+  .factory( 'APIs' , [
     ()=> {
       const audio   = document.createElement( 'audio' ) ,
 
             config  = {
-              defaultApi   : 'google_cn' ,
+              defaultApi   : 'baidu' ,
               defaultSpeak : 'google_cn' ,
               defaultTo    : 'auto'
             } ,
@@ -34,6 +52,14 @@ angular.module( 'APIs' , [] )
             APIs    = {} ,
 
             context = {
+
+              /**
+               * 注册一个接口
+               * @param {API} api
+               */
+              register : ( api )=> {
+                APIs[ api.id ] = api;
+              } ,
 
               /**
                * 翻译的方法
@@ -92,17 +118,6 @@ angular.module( 'APIs' , [] )
       //  angular.extend( config , changes );
       //} , config );
 
-      return {
-        /**
-         * 注册一个接口
-         * @param {API} api
-         */
-        register : ( api )=> {
-          APIs[ api.id ] = api;
-        } ,
-        $get     : ()=> {
-          return context;
-        }
-      };
+      return context;
     }
   ] );

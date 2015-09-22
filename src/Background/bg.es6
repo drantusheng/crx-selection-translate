@@ -1,4 +1,4 @@
-angular.module( 'bg' , [ 'clipboard' ] )
+angular.module( 'bg' , [ 'clipboard' , 'APIs' ] )
   .run( [
     'clipboard' , 'APIs' ,
     ( clipboard , api )=> {
