@@ -1,5 +1,7 @@
 # Selection Translator
 
+注意：默认分支（master）为正在开发的 v6.0 版，Chrome 商店的 v5.x 版在 [v5.x-master 分支](https://github.com/lmk123/crx-selection-translate/tree/5.x-master)。
+
 Selection Translator is an awesome extension for Chrome.
 
 ## Feature
