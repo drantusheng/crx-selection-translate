@@ -3,11 +3,11 @@ angular.module( 'bg' , [ 'clipboard' , 'APIs' ] )
     'clipboard' , 'APIs' ,
     ( clipboard , api )=> {
 
-      chrome.runtime.onMessage.addListener( function ( msg , sender , response ) {
+      chrome.runtime.onMessage.addListener( ( msg , sender , response )=> {
         const { data } = msg;
         switch ( msg.action ) {
           case 'translate':
-            api.ts( data ).then( ( resultObj )=> response( resultObj ) );
+            api.ts( data ).then( response );
             return true; // 发送回执需要在事件监听里返回 true
 
           case 'play': // 阅读
