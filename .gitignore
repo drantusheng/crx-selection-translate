@@ -4,3 +4,4 @@ src/vendor/
 **/*.js
 src/**/*.css
 **/*.map
+typings/
