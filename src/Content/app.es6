@@ -4,13 +4,24 @@
    */
   let dom_container ,
 
+  /**
+   * 第一次启动应用时，使用这个变量保存启动时的 MouseEvent，并翻译一次。
+   * 主要是需要里面的 pageX 与 pageY 定位翻译窗口
+   * @type {MouseEvent}
+   */
   bootstrapMouseUpEvent;
 
   /**
-   * 应用容器相对于视口的位置。x 为 left，y 为 top。
+   * 用于拖拽与改变窗口大小时的 x y 值
    * @type {{x: number, y: number}}
    */
-  const appPosition = { x : 0 , y : 0 };
+  const movePosition = { x : 0 , y : 0 } ,
+
+  /**
+   * 这个位置是应用容器相对于视口的位置，用于显示时固定位置
+   * @type {{x: number, y: number}}
+   */
+  containerPosition  = { x : 0 , y : 0 };
 
   angular
     .module( 'ST' , [] )
@@ -54,13 +65,13 @@
             interact( move )
               .draggable( {
                 onmove : ( event )=> {
-                  const x = appPosition.x + event.dx ,
-                        y = appPosition.y + event.dy;
+                  const x = movePosition.x + event.dx ,
+                        y = movePosition.y + event.dy;
 
                   dom_container.style.webkitTransform = dom_container.style.transform = 'translateX(' + x + 'px) translateY(' + y + 'px) translateZ(0)';
 
-                  appPosition.x = x;
-                  appPosition.y = y;
+                  movePosition.x = x;
+                  movePosition.y = y;
                 } ,
                 onend  : ()=> {
                   // todo 结束时判断一下窗口位置，如果超出视口则调整回来
@@ -166,6 +177,10 @@
          * 显示翻译窗口
          */
         function showWindow() {
+          if ( !$rootScope.config.alwaysShow ) {
+            dom_container.style.left = containerPosition.x + 'px';
+            dom_container.style.top  = containerPosition.y + 'px';
+          }
           dom_container.classList.add( 'st-show' );
         }
 
@@ -220,8 +235,8 @@
          * @param {MouseEvent} e
          */
         function setOffset( e ) {
-          appPosition.x = e.pageX + 10 - window.pageXOffset;
-          appPosition.y = e.pageY + 10 - window.pageYOffset;
+          containerPosition.x = e.pageX + 10 - window.pageXOffset;
+          containerPosition.y = e.pageY + 10 - window.pageYOffset;
         }
 
         /**
@@ -251,7 +266,7 @@
 
         // todo 获取配置
         const config = $rootScope.config = {
-          alwaysShow          : false , // 如果这个值是true，那么在别处点击时不会隐藏翻译框
+          alwaysShow          : false , // 如果这个值是true，那么在别处点击时不会隐藏翻译框，并且位置也不会变化
           enable              : true , // 是否开启当前网页的划词翻译
           autoPlay            : false , // 当翻译单词和短语（即翻译结果有 detailed 的时候）自动发音
           ignoreChinese       : false , // 是否忽略中文
@@ -315,6 +330,7 @@
 
   /**
    * 在发生第一次**有选中文本**的 mouseup 事件时启动应用
+   * @param {MouseEvent} event
    */
   function listener( event ) {
     if ( getText() ) {
@@ -351,7 +367,7 @@
         edges : { left : true , right : true , bottom : true , top : true }
       } )
       .on( 'resizemove' , function ( event ) {
-        let { x , y } = appPosition;
+        let { x , y } = movePosition;
 
         // todo 宽高变小的时候界面会受到影响。可能需要重新构建界面。
         dom_container.style.width  = event.rect.width + 'px';
@@ -363,8 +379,8 @@
 
         dom_container.style.webkitTransform = dom_container.style.transform = 'translateX(' + x + 'px) translateY(' + y + 'px) translateZ(0)';
 
-        appPosition.x = x;
-        appPosition.y = y;
+        movePosition.x = x;
+        movePosition.y = y;
       } );
 
     angular.bootstrap( app , [ 'ST' ] );
