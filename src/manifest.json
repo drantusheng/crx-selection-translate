@@ -70,7 +70,6 @@
       "js" : [
         "/vendor/interact/interact.js" ,
         "/vendor/angular/angular.js" ,
-        "/Content/bridge.js" ,
         "/Content/app.js"
       ] ,
       "all_frames" : true ,

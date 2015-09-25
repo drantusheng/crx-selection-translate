@@ -4,9 +4,9 @@
  * @property {String} id - 此接口的唯一 id
  * @property {String} name - 此接口的中文名称
  * @property {String} link - 此接口的在线网址
- * @property {Function} [detectLanguage] - 传递一段文本，返回一个 Promise。结果为语种
- * @property {Function} translate - 传递一个查询对象，返回一个 Promise。结果为翻译结果对象
- * @property {Function} [speakUrl] - 传递一个查询对象，返回一个 Promise。结果为一段指向这段文本的音频地址
+ * @property {Function.<String>} [detectLanguage] - 传递一段文本，返回一个 Promise。结果为语种
+ * @property {Function.<Query>} translate - 传递一个查询对象，返回一个 Promise。结果为翻译结果对象
+ * @property {Function.<Query>} [speakUrl] - 传递一个查询对象，返回一个 Promise。结果为一段指向这段文本的音频地址
  */
 
 /**
