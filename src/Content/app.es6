@@ -4,12 +4,12 @@
    */
   let dom_container ,
 
-  /**
-   * 第一次启动应用时，使用这个变量保存启动时的 MouseEvent，并翻译一次。
-   * 主要是需要里面的 pageX 与 pageY 定位翻译窗口
-   * @type {MouseEvent}
-   */
-  bootstrapMouseUpEvent;
+    /**
+     * 第一次启动应用时，使用这个变量保存启动时的 MouseEvent，并翻译一次。
+     * 主要是需要里面的 pageX 与 pageY 定位翻译窗口
+     * @type {MouseEvent}
+     */
+    bootstrapMouseUpEvent;
 
   /**
    * 用于拖拽与改变窗口大小时的 x y 值
@@ -17,11 +17,11 @@
    */
   const movePosition = { x : 0 , y : 0 } ,
 
-  /**
-   * 这个位置是应用容器相对于视口的位置，用于显示时固定位置
-   * @type {{x: number, y: number}}
-   */
-  containerPosition  = { x : 0 , y : 0 };
+    /**
+     * 这个位置是应用容器相对于视口的位置，用于显示时固定位置
+     * @type {{x: number, y: number}}
+     */
+    containerPosition = { x : 0 , y : 0 };
 
   angular
     .module( 'ST' , [] )
@@ -35,7 +35,7 @@
       'ExtRoot' ,
       ( root ) => {
         return {
-          restrict    : 'E' ,
+          restrict : 'E' ,
           templateUrl : root + 'Content/app.html'
         };
       }
@@ -43,8 +43,9 @@
     .directive( 'stInput' , [
       ()=> {
         return {
+          restrict : 'E' ,
           require : 'ngModel' ,
-          link    : ( $rootScope , element , attrs , ngModelCtrl )=> {
+          link : ( $rootScope , element , attrs , ngModelCtrl )=> {
             element.prop( 'contentEditable' , true );
             ngModelCtrl.$render = ()=> {
               element.prop( 'textContent' , ngModelCtrl.$viewValue );
@@ -66,14 +67,14 @@
               .draggable( {
                 onmove : ( event )=> {
                   const x = movePosition.x + event.dx ,
-                        y = movePosition.y + event.dy;
+                    y = movePosition.y + event.dy;
 
                   dom_container.style.webkitTransform = dom_container.style.transform = 'translateX(' + x + 'px) translateY(' + y + 'px) translateZ(0)';
 
                   movePosition.x = x;
                   movePosition.y = y;
                 } ,
-                onend  : ()=> {
+                onend : ()=> {
                   // todo 结束时判断一下窗口位置，如果超出视口则调整回来
                 }
               } );
@@ -98,12 +99,19 @@
 
         /**
          * 翻译的方法
-         * @param {Query} queryObj
-         * @returns {IPromise<T>}
+         * @param {String|Query} [queryObj]
+         * @returns {angular.IPromise<T>}
          */
-        function translate( queryObj ) {
+        function translate( queryObj = { text : getText() } ) {
+
+          if ( 'string' === typeof queryObj ) {
+            queryObj = {
+              text : queryObj
+            };
+          }
+
           $rootScope.context.loading = true;
-          $rootScope.context.query   = queryObj;
+          $rootScope.context.query = queryObj;
 
           showWindow();
 
@@ -119,31 +127,31 @@
         /**
          * 复制文本进剪切板
          * @param {String} text
-         * @returns {IPromise<T>}
+         * @returns {angular.IPromise<T>}
          */
         function copy( text ) {
           return talkToBackground( {
             action : 'copy' ,
-            data   : text
+            data : text
           } );
         }
 
         /**
          * 获取查询结果
          * @param {Query} queryObj
-         * @returns {IPromise<T>}
+         * @returns {angular.IPromise<T>}
          */
         function getResult( queryObj ) {
           return talkToBackground( {
             action : 'translate' ,
-            data   : queryObj
+            data : queryObj
           } );
         }
 
         /**
          * 一个与背景页通信的方法
          * @param {{action: String, data: *}} obj
-         * @returns {IPromise<T>}
+         * @returns {angular.IPromise<T>}
          */
         function talkToBackground( obj ) {
           return $q( ( resolve , reject ) => {
@@ -179,7 +187,7 @@
         function showWindow() {
           if ( !$rootScope.config.alwaysShow ) {
             dom_container.style.left = containerPosition.x + 'px';
-            dom_container.style.top  = containerPosition.y + 'px';
+            dom_container.style.top = containerPosition.y + 'px';
           }
           dom_container.classList.add( 'st-show' );
         }
@@ -187,6 +195,7 @@
         /**
          * 检查一次翻译行为是否可翻译
          * @param {MouseEvent} event - 触发事件时的事件对象
+         * @param {HTMLElement} event.target - 覆盖默认的 EventTarget 类型
          * @param {String} [text] - 待检查的文本
          * @returns {Boolean} - 结果
          */
@@ -250,13 +259,13 @@
 
         /**
          * 判断节点 b 是否是节点 a 的子节点。
-         * @param {HTMLElement} a
+         * @param {Document|HTMLElement} a
          * @param {HTMLElement} b
          * @returns {boolean}
          */
         function contains( a , b ) {
           const adown = a.nodeType === 9 ? a.documentElement : a ,
-                bup   = b && b.parentNode;
+            bup = b && b.parentNode;
           return a === bup || !!( bup && bup.nodeType === 1 && adown.contains( bup ) );
         }
       }
@@ -266,25 +275,25 @@
 
         // todo 获取配置
         const config = $rootScope.config = {
-          alwaysShow          : false , // 如果这个值是true，那么在别处点击时不会隐藏翻译框，并且位置也不会变化
-          enable              : true , // 是否开启当前网页的划词翻译
-          autoPlay            : false , // 当翻译单词和短语（即翻译结果有 detailed 的时候）自动发音
-          ignoreChinese       : false , // 是否忽略中文
-          ignoreNumLike       : true , // 忽略数字与符号的组成
+          alwaysShow : false , // 如果这个值是true，那么在别处点击时不会隐藏翻译框，并且位置也不会变化
+          enable : true , // 是否开启当前网页的划词翻译
+          autoPlay : false , // 当翻译单词和短语（即翻译结果有 detailed 的时候）自动发音
+          ignoreChinese : false , // 是否忽略中文
+          ignoreNumLike : true , // 忽略数字与符号的组成
           showTranslateButton : false , // 是否在划词后显示一个按钮，点击它才翻译
-          waitText            : '正在翻译，请稍候……' ,  // 正在翻译的提示语
-          needCtrl            : false , // 是否需要配合 Ctrl 键才翻译
-          template            : '划词翻译刚才自动更新了，请重启浏览器后重试。'
+          waitText : '正在翻译，请稍候……' ,  // 正在翻译的提示语
+          needCtrl : false , // 是否需要配合 Ctrl 键才翻译
+          template : '划词翻译刚才自动更新了，请重启浏览器后重试。'
         };
 
         /**
          * 上下文
          * @type {{loading: Boolean, query: Query, result: Result}}
          */
-        $rootScope.context    = {
+        $rootScope.context = {
           loading : false ,
-          query   : null ,
-          result  : null
+          query : null ,
+          result : null
         };
 
         $document
@@ -352,7 +361,7 @@
    * 初始化并启动 AngularJS 应用
    */
   function bootstrapApp() {
-    bootstrapApp  = angular.noop;
+    bootstrapApp = angular.noop;
     dom_container = document.createElement( 'st-div' );
     dom_container.setAttribute( 'ng-non-bindable' , '' );
 
@@ -370,7 +379,7 @@
         let { x , y } = movePosition;
 
         // todo 宽高变小的时候界面会受到影响。可能需要重新构建界面。
-        dom_container.style.width  = event.rect.width + 'px';
+        dom_container.style.width = event.rect.width + 'px';
         dom_container.style.height = event.rect.height + 'px';
 
         // translate when resizing from top or left edges
