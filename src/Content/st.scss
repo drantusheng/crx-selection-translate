@@ -285,7 +285,7 @@ st-list-item:hover {
   /*background-color: #32cd74;*/
 }
 
-st-translate {
+st-tb {
   font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif;
   width: 25px;
   height: 25px;
@@ -294,7 +294,8 @@ st-translate {
   cursor: pointer;
   background-color: #32cd74;;
   position: fixed;
-  right: 0;
+  top: 0;
+  left: 0;
   font-size: 18px;
   color: #fff;
   z-index: 99999;

@@ -1,8 +1,15 @@
 (( window , document , angular )=> {
   /**
-   * @type {HTMLElement} 应用最外层的容器，这个容器不是应用的一部分
+   * 应用最外层的容器，这个容器不是应用的一部分
+   * @type {HTMLElement}
    */
   let dom_container ,
+
+    /**
+     * 翻译按钮，同样也不是应用的一部分
+     * @type {HTMLElement}
+     */
+    translateBtn ,
 
     /**
      * 第一次启动应用时，使用这个变量保存启动时的 MouseEvent，并翻译一次。
@@ -21,7 +28,7 @@
      * 这个位置是应用容器相对于视口的位置，用于显示时固定位置
      * @type {{x: number, y: number}}
      */
-    containerPosition = { x : 0 , y : 0 };
+    mouseUpPosition = { x : 0 , y : 0 };
 
   angular
     .module( 'ST' , [] )
@@ -58,8 +65,10 @@
       }
     ] )
     .directive( 'stMove' , [
-      ()=> {
+      'utilities' ,
+      ( utilities )=> {
         return {
+          restrict : 'E' ,
           link : ( $rootScope , element )=> {
             const move = element[ 0 ];
             // 代码基于@{link http://interactjs.io/}
@@ -69,10 +78,7 @@
                   const x = movePosition.x + event.dx ,
                     y = movePosition.y + event.dy;
 
-                  dom_container.style.webkitTransform = dom_container.style.transform = 'translateX(' + x + 'px) translateY(' + y + 'px) translateZ(0)';
-
-                  movePosition.x = x;
-                  movePosition.y = y;
+                  utilities.setMovePosition( x , y );
                 } ,
                 onend : ()=> {
                   // todo 结束时判断一下窗口位置，如果超出视口则调整回来
@@ -88,12 +94,16 @@
 
         return {
           check ,
+          isInDom ,
           showWindow ,
           hideWindow ,
+          showButton ,
+          hideButton ,
           getResult ,
           getText ,
           translate ,
-          setOffset ,
+          setMouseUpPosition ,
+          setMovePosition ,
           copy
         };
 
@@ -175,6 +185,22 @@
         }
 
         /**
+         * 显示翻译按钮
+         */
+        function showButton() {
+          translateBtn.style.left = mouseUpPosition.x + 'px';
+          translateBtn.style.top = mouseUpPosition.y + 'px';
+          translateBtn.style.display = 'inline-block';
+        }
+
+        /**
+         * 隐藏翻译按钮
+         */
+        function hideButton() {
+          translateBtn.style.display = 'none';
+        }
+
+        /**
          * 隐藏翻译窗口
          */
         function hideWindow() {
@@ -186,9 +212,11 @@
          */
         function showWindow() {
           if ( !$rootScope.config.alwaysShow ) {
-            dom_container.style.left = containerPosition.x + 'px';
-            dom_container.style.top = containerPosition.y + 'px';
+            dom_container.style.left = mouseUpPosition.x + 'px';
+            dom_container.style.top = mouseUpPosition.y + 'px';
           }
+
+          setMovePosition( 0 , 0 );
           dom_container.classList.add( 'st-show' );
         }
 
@@ -243,9 +271,20 @@
          * 计算并设置翻译框下次显示的位置，相对于“视口”
          * @param {MouseEvent} e
          */
-        function setOffset( e ) {
-          containerPosition.x = e.pageX + 10 - window.pageXOffset;
-          containerPosition.y = e.pageY + 10 - window.pageYOffset;
+        function setMouseUpPosition( e ) {
+          mouseUpPosition.x = e.pageX + 10 - window.pageXOffset;
+          mouseUpPosition.y = e.pageY + 10 - window.pageYOffset;
+        }
+
+        /**
+         * 设定翻译窗口的 move position
+         * @param {Number} x
+         * @param {Number} y
+         */
+        function setMovePosition( x , y ) {
+          movePosition.x = x;
+          movePosition.y = y;
+          dom_container.style.webkitTransform = dom_container.style.transform = 'translateX(' + x + 'px) translateY(' + y + 'px) translateZ(0)';
         }
 
         /**
@@ -280,7 +319,7 @@
           autoPlay : false , // 当翻译单词和短语（即翻译结果有 detailed 的时候）自动发音
           ignoreChinese : false , // 是否忽略中文
           ignoreNumLike : true , // 忽略数字与符号的组成
-          showTranslateButton : false , // 是否在划词后显示一个按钮，点击它才翻译
+          showTranslateButton : true , // 是否在划词后显示一个按钮，点击它才翻译
           waitText : '正在翻译，请稍候……' ,  // 正在翻译的提示语
           needCtrl : false , // 是否需要配合 Ctrl 键才翻译
           template : '划词翻译刚才自动更新了，请重启浏览器后重试。'
@@ -296,6 +335,16 @@
           result : null
         };
 
+        document.addEventListener( 'mousedown' , function ( e ) {
+          if ( translateBtn === e.target ) {
+            e.preventDefault(); // 点击翻译按钮时防止划选的文本消失掉
+            utilities.translate();
+          } else if ( !utilities.isInDom( e.target ) ) {
+            utilities.hideWindow();
+          }
+          utilities.hideButton();
+        } , true );
+
         $document
           .on( 'mouseup' , mouseUpHandler );
 
@@ -307,7 +356,7 @@
          * @param {MouseEvent} e
          */
         function mouseUpHandler( e ) {
-          utilities.setOffset( e );
+          utilities.setMouseUpPosition( e );
 
           /**
            * 在这里使用延时的原因在于，
@@ -319,9 +368,7 @@
             const text = utilities.getText();
             if ( utilities.check( e , text ) ) {
               if ( config.showTranslateButton && !(config.needCtrl && e.ctrlKey) ) { // 指定 Ctrl 时直接翻译
-                // todo 显示翻译按钮的逻辑
-                //selection.showBtn();
-                console.warn( '显示翻译按钮还没做' );
+                utilities.showButton();
               } else {
                 utilities.translate( { text } );
               }
@@ -362,12 +409,22 @@
    */
   function bootstrapApp() {
     bootstrapApp = angular.noop;
+
+    // 翻译结果窗体
     dom_container = document.createElement( 'st-div' );
+    dom_container.dataset.hi = '我是由“划词翻译”生成的，不要担心;)';
     dom_container.setAttribute( 'ng-non-bindable' , '' );
 
+    // 真正被启动的 $rootElement
     let app = document.createElement( 'st-container' );
     dom_container.appendChild( app );
 
+    // 翻译按钮
+    translateBtn = document.createElement( 'st-tb' );
+    translateBtn.dataset.hi = '我是由“划词翻译”生成的，不要担心;)';
+    translateBtn.textContent = '译';
+
+    document.body.appendChild( translateBtn );
     document.body.appendChild( dom_container );
 
     // 让容器可拖动边缘改变大小
